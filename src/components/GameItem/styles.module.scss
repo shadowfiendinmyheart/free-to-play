@@ -1,0 +1,11 @@
+@import "../../constants/variables.module";
+
+.gameThumbnail {
+  height: 100%;
+  width: 200px;
+  object-fit: cover;
+
+  @media (max-width: $mobileWidth) {
+    width: 100%;
+  }
+}
