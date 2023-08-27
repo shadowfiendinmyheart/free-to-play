@@ -3,8 +3,9 @@ import {Link} from "react-router-dom";
 import {List, Typography} from "antd";
 import FiltersPanel from "../../components/FiltersPanel";
 import GameItem from "../../components/GameItem";
-import {gameItemsMock} from "./mockData";
 import {mapGamePageViewToGamePreview} from "../../utils/mappers";
+import {getGamePageRoutePath} from "../../constants/routes";
+import {gameItemsMock} from "./mockData";
 
 import styles from "./styles.module.scss";
 
@@ -19,7 +20,7 @@ const MainPage: React.FC = () => {
           dataSource={gameItemsMock}
           renderItem={(item) => {
             return (
-              <Link to={"/404"}>
+              <Link to={getGamePageRoutePath(item.id)}>
                 <div className={styles.gameItemWrapper}>
                   <GameItem {...mapGamePageViewToGamePreview(item)} />
                 </div>

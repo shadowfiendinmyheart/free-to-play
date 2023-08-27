@@ -1,0 +1,14 @@
+@import "../../constants/variables.module";
+
+.gamePage {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.backButtonWrapper {
+  position: relative;
+  left: -12px;
+}

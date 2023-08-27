@@ -1,0 +1,19 @@
+@import "../../../constants/variables.module";
+
+.mainInfo {
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: $mobileWidth) {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+}
+
+.thumbnail {
+  width: 300px;
+
+  @media (max-width: $mobileWidth) {
+    width: 100%;
+  }
+}

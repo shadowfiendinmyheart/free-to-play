@@ -12,7 +12,7 @@ export interface GetGameByIdResponse {
   developer: string;
   release_date: string;
   freetogame_profile_url: string;
-  minimum_system_requirements: MinimumSystemRequirements;
+  minimum_system_requirements?: MinimumSystemRequirements;
   screenshots: Screenshot[];
 }
 
@@ -45,7 +45,7 @@ export interface Game
   gameUrl: string;
   releaseDate: string;
   freetogameProfileUrl: string;
-  minimumSystemRequirements: MinimumSystemRequirements;
+  minimumSystemRequirements?: MinimumSystemRequirements;
 }
 
 export interface GamePreview
