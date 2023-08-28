@@ -9,9 +9,20 @@ import GameScreenshots from "./components/GameScreenshots";
 import {ROUTES} from "../../constants/routes";
 
 import styles from "./styles.module.scss";
+import {useGetGameByIdQuery} from "../../services/gameService";
 
 const GamePage = () => {
   const {id} = useParams();
+  const {
+    data: game,
+    error = false,
+    isLoading = false,
+  } = useGetGameByIdQuery(Number(id) || 0, {skip: false});
+
+  // TODO
+  if (error) return <></>;
+
+  const gameProps = {...game, isLoading};
 
   return (
     <div className={styles.gamePage}>
@@ -20,10 +31,10 @@ const GamePage = () => {
           Back
         </Button>
       </Link>
-      <GameTitle />
-      <GameMainInfo />
-      <GameMinimumSystemRequirements />
-      <GameScreenshots />
+      <GameTitle {...gameProps} />
+      <GameMainInfo {...gameProps} />
+      <GameMinimumSystemRequirements {...gameProps} />
+      <GameScreenshots {...gameProps} />
     </div>
   );
 };

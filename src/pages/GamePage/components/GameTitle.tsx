@@ -1,13 +1,12 @@
 import React from "react";
 import {Skeleton, Typography} from "antd";
-import {gameMock} from "./../mockData";
+import {GameProps} from "./utils";
 
 const {Title} = Typography;
 
-const GameTitle = () => {
-  const {title} = gameMock;
-  const isLoading = false;
+interface GameTitleProps extends GameProps<"title"> {}
 
+const GameTitle: React.FC<GameTitleProps> = ({title, isLoading}) => {
   if (isLoading)
     return <Skeleton.Input active size="large" style={{width: "300px"}} />;
 

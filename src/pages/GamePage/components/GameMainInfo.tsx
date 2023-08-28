@@ -3,13 +3,24 @@ import {Descriptions, Skeleton} from "antd";
 import {getRuDate} from "../../../utils/date";
 import {gameMock} from "../mockData";
 import useIsMobile from "../../../hooks/useIsMobile";
+import {GameProps} from "./utils";
 
 import styles from "./styles.module.scss";
 
-const GameMainInfo = () => {
-  const {releaseDate, publisher, developer, genre, thumbnail} = gameMock;
+interface GameMainInfoProps
+  extends GameProps<
+    "releaseDate" | "publisher" | "developer" | "genre" | "thumbnail"
+  > {}
+
+const GameMainInfo: React.FC<GameMainInfoProps> = ({
+  releaseDate,
+  publisher,
+  developer,
+  genre,
+  thumbnail,
+  isLoading,
+}) => {
   const isMobile = useIsMobile();
-  const isLoading = false;
 
   if (isLoading) {
     return (
@@ -36,7 +47,7 @@ const GameMainInfo = () => {
     <div className={styles.mainInfo}>
       <Descriptions
         items={[
-          {label: "Release date", children: getRuDate(releaseDate)},
+          {label: "Release date", children: getRuDate(releaseDate || "")},
           {label: "Publisher", children: publisher},
           {label: "Developer", children: developer},
           {label: "Genre", children: genre},

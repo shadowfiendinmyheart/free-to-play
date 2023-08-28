@@ -3,13 +3,16 @@ import {LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {Carousel, Image, Skeleton} from "antd";
 import {gameMock} from "./../mockData";
 import WithTitle from "./WithTitle";
+import {GameProps} from "./utils";
 
 const title = "Screenshots";
 
-const GameScreenshots = () => {
-  const {screenshots} = gameMock;
-  const isLoading = false;
+interface GameScreenshotsProps extends GameProps<"screenshots"> {}
 
+const GameScreenshots: React.FC<GameScreenshotsProps> = ({
+  screenshots,
+  isLoading,
+}) => {
   if (isLoading) {
     return (
       <WithTitle title={title}>
@@ -28,7 +31,7 @@ const GameScreenshots = () => {
         prevArrow={<LeftOutlined />}
         nextArrow={<RightOutlined />}
       >
-        {screenshots.map((screenshot) => (
+        {screenshots?.map((screenshot) => (
           <Image key={screenshot.id} src={screenshot.image} />
         ))}
       </Carousel>

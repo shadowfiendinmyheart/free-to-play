@@ -1,15 +1,19 @@
-import React, {ReactNode} from "react";
-import {Descriptions, Skeleton, Typography} from "antd";
+import React from "react";
+import {Descriptions, Skeleton} from "antd";
 import useIsMobile from "../../../hooks/useIsMobile";
 import {gameMock} from "./../mockData";
 import WithTitle from "./WithTitle";
+import {GameProps} from "./utils";
 
 const title = "Minimum System Requirements";
 
-const GameMinimumSystemRequirements = () => {
+interface GameMinimumSystemRequirementsProps
+  extends GameProps<"minimumSystemRequirements"> {}
+
+const GameMinimumSystemRequirements: React.FC<
+  GameMinimumSystemRequirementsProps
+> = ({minimumSystemRequirements, isLoading}) => {
   const isMobile = useIsMobile();
-  const {minimumSystemRequirements} = gameMock;
-  const isLoading = false;
 
   if (isLoading) {
     return (
@@ -25,7 +29,10 @@ const GameMinimumSystemRequirements = () => {
   }
 
   // TODO
-  if (!minimumSystemRequirements) return <></>;
+  if (!minimumSystemRequirements) {
+    console.log("wtf", minimumSystemRequirements);
+    return <></>;
+  }
 
   return (
     <WithTitle title={title}>
