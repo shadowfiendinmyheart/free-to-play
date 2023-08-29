@@ -3,26 +3,41 @@ import {Link} from "react-router-dom";
 import {List, Typography} from "antd";
 import FiltersPanel from "../../components/FiltersPanel";
 import GameItem from "../../components/GameItem";
-import {mapGamePageViewToGamePreview} from "../../utils/mappers";
 import {getGamePageRoutePath} from "../../constants/routes";
-import {gameItemsMock} from "./mockData";
+import {useGetGamesQuery} from "../../services/gameService";
+import {Category, SortGameBy} from "../../models/game.model";
 
 import styles from "./styles.module.scss";
+import {useAppSelector} from "../../hooks/redux";
 
 const {Title} = Typography;
 
 const MainPage: React.FC = () => {
+  const {platform} = useAppSelector((state) => state.filterReducer);
+  const {
+    data: games,
+    error,
+    isLoading,
+  } = useGetGamesQuery({
+    platform: platform,
+    sortBy: SortGameBy.Popularity,
+    tags: [Category.Anime],
+  });
+
+  // TODO
+  if (error) return <></>;
+
   return (
     <>
-      <Title>Free to GAME app</Title>
+      <Title>Free-to-play games</Title>
       <div className={styles.content}>
         <List
-          dataSource={gameItemsMock}
+          dataSource={games}
           renderItem={(item) => {
             return (
               <Link to={getGamePageRoutePath(item.id)}>
                 <div className={styles.gameItemWrapper}>
-                  <GameItem {...mapGamePageViewToGamePreview(item)} />
+                  <GameItem isLoading={isLoading} {...item} />
                 </div>
               </Link>
             );

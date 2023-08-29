@@ -12,12 +12,13 @@ interface GameItemProps
   extends Pick<
     GamePreview,
     "title" | "releaseDate" | "publisher" | "genre" | "thumbnail"
-  > {}
+  > {
+  isLoading: boolean;
+}
 
 const GameItem: React.FC<GameItemProps> = (props) => {
-  const {title} = props;
+  const {title, isLoading} = props;
   const isMobile = useIsMobile();
-  const [isLoading, setIsLoading] = React.useState(false);
 
   if (isLoading) return <Skeleton active paragraph={{rows: 4}} />;
 

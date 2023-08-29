@@ -2,6 +2,8 @@ import React from "react";
 import {Card, Select, Typography} from "antd";
 import {DefaultOptionType} from "antd/es/select";
 import {Category, Platform, SortGameBy} from "../../models/game.model";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {filtersSlice} from "../../store/reducers/FiltersSlice";
 
 import styles from "./styles.module.scss";
 
@@ -16,11 +18,29 @@ const categoryOptions: DefaultOptionType[] = getOptions(Category);
 const sortOptions: DefaultOptionType[] = getOptions(SortGameBy);
 
 const FiltersPanel = () => {
+  const {platform, sortBy, tags} = useAppSelector(
+    (state) => state.filterReducer,
+  );
+  const {changePlatform} = filtersSlice.actions;
+  const dispatch = useAppDispatch();
+
+  const handlePlatformChange = (
+    value: Platform,
+    option: DefaultOptionType | DefaultOptionType[],
+  ) => {
+    dispatch(changePlatform(value));
+  };
+
   return (
     <Card size="small" className={styles.filtersCard}>
       <div className={styles.filters}>
         <Text>Filters:</Text>
-        <Select options={platformOptions} placeholder="Platform" />
+        <Select
+          options={platformOptions}
+          value={platform}
+          onChange={handlePlatformChange}
+          placeholder="Platform"
+        />
         <Select
           options={categoryOptions}
           placeholder="Category"

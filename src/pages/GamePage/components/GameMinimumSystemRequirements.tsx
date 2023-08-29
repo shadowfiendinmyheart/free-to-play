@@ -1,7 +1,6 @@
 import React from "react";
 import {Descriptions, Skeleton} from "antd";
 import useIsMobile from "../../../hooks/useIsMobile";
-import {gameMock} from "./../mockData";
 import WithTitle from "./WithTitle";
 import {GameProps} from "./utils";
 
@@ -30,8 +29,11 @@ const GameMinimumSystemRequirements: React.FC<
 
   // TODO
   if (!minimumSystemRequirements) {
-    console.log("wtf", minimumSystemRequirements);
-    return <></>;
+    return (
+      <WithTitle title={title}>
+        <span>You can use microwave to play this game</span>
+      </WithTitle>
+    );
   }
 
   return (

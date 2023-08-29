@@ -1,7 +1,6 @@
 import React from "react";
 import {Descriptions, Skeleton} from "antd";
 import {getRuDate} from "../../../utils/date";
-import {gameMock} from "../mockData";
 import useIsMobile from "../../../hooks/useIsMobile";
 import {GameProps} from "./utils";
 

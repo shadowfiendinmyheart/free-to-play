@@ -6,3 +6,8 @@ export const getRuDate = (date: string) => {
     timeZone: "UTC",
   });
 };
+
+export const checkIsEarlierThanFiveMinutes = (timestamp: number) => {
+  const FIVE_MINUTES_IN_MS = 300_000;
+  return Date.now() - timestamp < FIVE_MINUTES_IN_MS;
+};

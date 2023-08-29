@@ -30,7 +30,7 @@ export interface GamePageView {
   freetogame_profile_url: string;
 }
 
-export type GetGamePageResponse = GamePageView[];
+export type GetGamesPageResponse = GamePageView[];
 
 export interface Game
   extends Omit<
@@ -46,6 +46,10 @@ export interface Game
   releaseDate: string;
   freetogameProfileUrl: string;
   minimumSystemRequirements?: MinimumSystemRequirements;
+}
+
+export interface GameWithTimestampReceiving extends Game {
+  timestampReceiving: number;
 }
 
 export interface GamePreview

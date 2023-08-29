@@ -1,6 +1,17 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
-import {Game, GetGameByIdResponse} from "../models/game.model";
-import {mapGameByIdToGame} from "../utils/mappers";
+import {GamePageFilter} from "../models/filter.model";
+import {
+  Game,
+  GamePageView,
+  GamePreview,
+  GameWithTimestampReceiving,
+  GetGameByIdResponse,
+  GetGamesPageResponse,
+} from "../models/game.model";
+import {
+  mapGameByIdToGame,
+  mapGamePageViewToGamePreview,
+} from "../utils/mappers";
 
 export const gameApi = createApi({
   reducerPath: "gameApi",
@@ -21,13 +32,33 @@ export const gameApi = createApi({
   endpoints: (build) => ({
     getGameById: build.query<Game, number>({
       query: (id) => {
-        // local storage set id and timestamp
         return `/game?id=${id}`;
       },
-      transformResponse: (response: GetGameByIdResponse) =>
-        mapGameByIdToGame(response),
+      transformResponse: (response: GetGameByIdResponse) => {
+        const mappedGameResponse = {...mapGameByIdToGame(response)};
+        const gameWithTimestampReceiving: GameWithTimestampReceiving = {
+          ...mappedGameResponse,
+          timestampReceiving: Date.now(),
+        };
+        sessionStorage.setItem(
+          `game_${mappedGameResponse.id}`,
+          JSON.stringify(gameWithTimestampReceiving),
+        );
+        return mappedGameResponse;
+      },
+    }),
+    getGames: build.query<GamePreview[], GamePageFilter>({
+      query: ({platform, sortBy, tags}) => ({
+        url: tags.length ? "/filter" : "/games",
+        params: tags.length
+          ? {tag: tags.join("."), platform, sortBy}
+          : {platform, sortBy},
+      }),
+      transformResponse: (response: GetGamesPageResponse) => {
+        return response.map((game) => mapGamePageViewToGamePreview(game));
+      },
     }),
   }),
 });
 
-export const {useGetGameByIdQuery} = gameApi;
+export const {useGetGameByIdQuery, useGetGamesQuery} = gameApi;

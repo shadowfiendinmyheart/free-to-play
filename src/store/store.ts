@@ -1,9 +1,9 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {gameApi} from "../services/gameService";
-import appReducer from "./reducers/AppSlice";
+import filterReducer from "./reducers/FiltersSlice";
 
 const rootReducer = combineReducers({
-  appReducer,
+  filterReducer,
   [gameApi.reducerPath]: gameApi.reducer,
 });
 

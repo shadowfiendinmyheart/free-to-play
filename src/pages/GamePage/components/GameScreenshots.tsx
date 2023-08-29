@@ -1,7 +1,6 @@
 import React from "react";
 import {LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {Carousel, Image, Skeleton} from "antd";
-import {gameMock} from "./../mockData";
 import WithTitle from "./WithTitle";
 import {GameProps} from "./utils";
 
@@ -26,15 +25,19 @@ const GameScreenshots: React.FC<GameScreenshotsProps> = ({
 
   return (
     <WithTitle title={title}>
-      <Carousel
-        arrows
-        prevArrow={<LeftOutlined />}
-        nextArrow={<RightOutlined />}
-      >
-        {screenshots?.map((screenshot) => (
-          <Image key={screenshot.id} src={screenshot.image} />
-        ))}
-      </Carousel>
+      {screenshots?.length ? (
+        <Carousel
+          arrows
+          prevArrow={<LeftOutlined />}
+          nextArrow={<RightOutlined />}
+        >
+          {screenshots?.map((screenshot) => (
+            <Image key={screenshot.id} src={screenshot.image} />
+          ))}
+        </Carousel>
+      ) : (
+        <span>Screenshots are empty...</span>
+      )}
     </WithTitle>
   );
 };
