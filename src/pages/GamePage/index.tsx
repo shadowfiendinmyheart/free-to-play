@@ -6,12 +6,13 @@ import GameMainInfo from "./components/GameMainInfo";
 import GameTitle from "./components/GameTitle";
 import GameMinimumSystemRequirements from "./components/GameMinimumSystemRequirements";
 import GameScreenshots from "./components/GameScreenshots";
+import WithErrorFallback from "../../components/ErrorFallback/WithErrorFallback";
 import {ROUTES} from "../../constants/routes";
-
-import styles from "./styles.module.scss";
 import {useGetGameByIdQuery} from "../../services/gameService";
 import {checkIsEarlierThanFiveMinutes} from "../../utils/date";
 import {GameWithTimestampReceiving} from "../../models/game.model";
+
+import styles from "./styles.module.scss";
 
 const GamePage = () => {
   const {id} = useParams();
@@ -24,18 +25,20 @@ const GamePage = () => {
     ? checkIsEarlierThanFiveMinutes(gameFromStorage!.timestampReceiving)
     : false;
 
-  const {
-    data,
-    error = false,
-    isLoading = false,
-  } = useGetGameByIdQuery(Number(id) || 0, {skip: isFresh});
+  const {data, isError, error, isFetching} = useGetGameByIdQuery(
+    Number(id) || 0,
+    {
+      skip: isFresh,
+    },
+  );
+
+  if (isError && "data" in error) {
+    console.log("error", JSON.stringify(error.data));
+  }
 
   const game = isFresh ? gameFromStorage : data;
 
-  // TODO
-  if (error) return <></>;
-
-  const gameProps = {...game, isLoading};
+  const gameProps = {...game, isLoading: isFetching};
 
   return (
     <div className={styles.gamePage}>
@@ -44,10 +47,12 @@ const GamePage = () => {
           Back
         </Button>
       </Link>
-      <GameTitle {...gameProps} />
-      <GameMainInfo {...gameProps} />
-      <GameMinimumSystemRequirements {...gameProps} />
-      <GameScreenshots {...gameProps} />
+      <WithErrorFallback isError={isError} expandError={error}>
+        <GameTitle {...gameProps} />
+        <GameMainInfo {...gameProps} />
+        <GameMinimumSystemRequirements {...gameProps} />
+        <GameScreenshots {...gameProps} />
+      </WithErrorFallback>
     </div>
   );
 };

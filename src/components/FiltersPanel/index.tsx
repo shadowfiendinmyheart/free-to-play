@@ -21,14 +21,17 @@ const FiltersPanel = () => {
   const {platform, sortBy, tags} = useAppSelector(
     (state) => state.filterReducer,
   );
-  const {changePlatform} = filtersSlice.actions;
+  const {changePlatform, changeCategories, changeSortBy} = filtersSlice.actions;
   const dispatch = useAppDispatch();
 
-  const handlePlatformChange = (
-    value: Platform,
-    option: DefaultOptionType | DefaultOptionType[],
-  ) => {
+  const handlePlatformChange = (value: Platform) => {
     dispatch(changePlatform(value));
+  };
+  const handleCategoryChange = (value: Category[]) => {
+    dispatch(changeCategories(value));
+  };
+  const handleSortByChange = (value: SortGameBy) => {
+    dispatch(changeSortBy(value));
   };
 
   return (
@@ -40,14 +43,24 @@ const FiltersPanel = () => {
           value={platform}
           onChange={handlePlatformChange}
           placeholder="Platform"
+          allowClear
         />
         <Select
           options={categoryOptions}
+          value={tags}
+          onChange={handleCategoryChange}
           placeholder="Category"
           mode="multiple"
+          allowClear
         />
         <Text>Sort by:</Text>
-        <Select options={sortOptions} placeholder="Sort" />
+        <Select
+          options={sortOptions}
+          value={sortBy}
+          onChange={handleSortByChange}
+          placeholder="Sort"
+          allowClear
+        />
       </div>
     </Card>
   );

@@ -3,6 +3,7 @@ import {LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {Carousel, Image, Skeleton} from "antd";
 import WithTitle from "./WithTitle";
 import {GameProps} from "./utils";
+import {Screenshot} from "../../../models/game.model";
 
 const title = "Screenshots";
 
@@ -31,7 +32,7 @@ const GameScreenshots: React.FC<GameScreenshotsProps> = ({
           prevArrow={<LeftOutlined />}
           nextArrow={<RightOutlined />}
         >
-          {screenshots?.map((screenshot) => (
+          {screenshots?.map((screenshot: Screenshot) => (
             <Image key={screenshot.id} src={screenshot.image} />
           ))}
         </Carousel>

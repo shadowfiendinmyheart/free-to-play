@@ -5,31 +5,44 @@ import FiltersPanel from "../../components/FiltersPanel";
 import GameItem from "../../components/GameItem";
 import {getGamePageRoutePath} from "../../constants/routes";
 import {useGetGamesQuery} from "../../services/gameService";
-import {Category, SortGameBy} from "../../models/game.model";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {listSlice} from "../../store/reducers/ListSlice";
 
 import styles from "./styles.module.scss";
-import {useAppSelector} from "../../hooks/redux";
+import ErrorFallback from "../../components/ErrorFallback";
 
 const {Title} = Typography;
 
 const MainPage: React.FC = () => {
-  const {platform} = useAppSelector((state) => state.filterReducer);
+  const {platform, tags, sortBy} = useAppSelector(
+    (state) => state.filterReducer,
+  );
+  const {currentPage} = useAppSelector((state) => state.listReducer);
+  const dispatch = useAppDispatch();
+  const {changeCurrentPage} = listSlice.actions;
   const {
     data: games,
+    isError,
     error,
-    isLoading,
-  } = useGetGamesQuery({
-    platform: platform,
-    sortBy: SortGameBy.Popularity,
-    tags: [Category.Anime],
-  });
+    isFetching,
+  } = useGetGamesQuery(
+    {
+      platform: platform,
+      tags: tags,
+      sortBy: sortBy,
+    },
+    {refetchOnMountOrArgChange: true},
+  );
 
-  // TODO
-  if (error) return <></>;
+  const handleChangeCurrentPageClick = (page: number) => {
+    dispatch(changeCurrentPage(page));
+  };
 
   return (
     <>
-      <Title>Free-to-play games</Title>
+      <header>
+        <Title>Free-to-play games</Title>
+      </header>
       <div className={styles.content}>
         <List
           dataSource={games}
@@ -37,14 +50,23 @@ const MainPage: React.FC = () => {
             return (
               <Link to={getGamePageRoutePath(item.id)}>
                 <div className={styles.gameItemWrapper}>
-                  <GameItem isLoading={isLoading} {...item} />
+                  <GameItem isLoading={isFetching} {...item} />
                 </div>
               </Link>
             );
           }}
-          pagination={{defaultPageSize: 5, align: "center"}}
+          pagination={
+            !isError && {
+              defaultPageSize: 5,
+              current: currentPage,
+              onChange: handleChangeCurrentPageClick,
+              align: "center",
+            }
+          }
           className={styles.list}
-        />
+        >
+          {isError && <ErrorFallback expandError={error} />}
+        </List>
         <FiltersPanel />
       </div>
     </>

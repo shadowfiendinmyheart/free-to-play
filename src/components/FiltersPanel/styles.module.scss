@@ -1,5 +1,12 @@
+@import "../../constants/variables.module";
+
 .filtersCard {
   min-width: 200px;
+  max-width: 200px;
+
+  @media (max-width: $mobileWidth) {
+    max-width: 100%;
+  }
 }
 
 .filters {

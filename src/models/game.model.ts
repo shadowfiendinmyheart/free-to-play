@@ -1,20 +1,4 @@
-export interface GetGameByIdResponse {
-  id: number;
-  title: string;
-  thumbnail: string;
-  status: string;
-  short_description: string;
-  description: string;
-  game_url: string;
-  genre: string;
-  platform: string;
-  publisher: string;
-  developer: string;
-  release_date: string;
-  freetogame_profile_url: string;
-  minimum_system_requirements?: MinimumSystemRequirements;
-  screenshots: Screenshot[];
-}
+import {GetGameByIdResponse} from "./gameApi.model";
 
 export interface GamePageView {
   id: number;
@@ -29,9 +13,6 @@ export interface GamePageView {
   release_date: string;
   freetogame_profile_url: string;
 }
-
-export type GetGamesPageResponse = GamePageView[];
-
 export interface Game
   extends Omit<
     GetGameByIdResponse,

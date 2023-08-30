@@ -1,9 +1,5 @@
-import {
-  Game,
-  GamePageView,
-  GamePreview,
-  GetGameByIdResponse,
-} from "../models/game.model";
+import {Game, GamePageView, GamePreview} from "../models/game.model";
+import {GetGameByIdResponse} from "../models/gameApi.model";
 
 export const mapGamePageViewToGamePreview = (
   gamePageView: GamePageView,

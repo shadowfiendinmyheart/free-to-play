@@ -2,12 +2,14 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {GamePageFilter} from "../models/filter.model";
 import {
   Game,
-  GamePageView,
   GamePreview,
   GameWithTimestampReceiving,
+} from "../models/game.model";
+import {
+  GetEmptyGamesPageResponse,
   GetGameByIdResponse,
   GetGamesPageResponse,
-} from "../models/game.model";
+} from "../models/gameApi.model";
 import {
   mapGameByIdToGame,
   mapGamePageViewToGamePreview,
@@ -31,9 +33,7 @@ export const gameApi = createApi({
   }),
   endpoints: (build) => ({
     getGameById: build.query<Game, number>({
-      query: (id) => {
-        return `/game?id=${id}`;
-      },
+      query: (id) => `/game?id=${id}`,
       transformResponse: (response: GetGameByIdResponse) => {
         const mappedGameResponse = {...mapGameByIdToGame(response)};
         const gameWithTimestampReceiving: GameWithTimestampReceiving = {
@@ -54,8 +54,18 @@ export const gameApi = createApi({
           ? {tag: tags.join("."), platform, sortBy}
           : {platform, sortBy},
       }),
-      transformResponse: (response: GetGamesPageResponse) => {
-        return response.map((game) => mapGamePageViewToGamePreview(game));
+      transformResponse: (
+        response: GetGamesPageResponse | GetEmptyGamesPageResponse,
+      ) => {
+        if ("code" in response) {
+          return [];
+        }
+
+        if (Array.isArray(response)) {
+          return response.map((game) => mapGamePageViewToGamePreview(game));
+        }
+
+        return [];
       },
     }),
   }),

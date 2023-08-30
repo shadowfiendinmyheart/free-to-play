@@ -2,8 +2,8 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Category, Platform, SortGameBy} from "../../models/game.model";
 
 export interface FiltersState {
-  tags: Category[];
   platform: Platform;
+  tags: Category[];
   sortBy: SortGameBy;
 }
 
@@ -19,6 +19,12 @@ export const filtersSlice = createSlice({
   reducers: {
     changePlatform(state, action: PayloadAction<Platform>) {
       state.platform = action.payload;
+    },
+    changeCategories(state, action: PayloadAction<Category[]>) {
+      state.tags = action.payload;
+    },
+    changeSortBy(state, action: PayloadAction<SortGameBy>) {
+      state.sortBy = action.payload;
     },
   },
 });
