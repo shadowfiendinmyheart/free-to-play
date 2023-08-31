@@ -23,7 +23,6 @@ const MainPage: React.FC = () => {
     isError,
     error,
     isFetching,
-    isLoading,
   } = useGetGamesQuery(
     {
       platform: platform,
