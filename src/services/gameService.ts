@@ -45,8 +45,8 @@ export const gameApi = createApi({
       query: ({ platform, sortBy, tags }) => ({
         url: tags.length ? "/filter" : "/games",
         params: tags.length
-          ? { tag: tags.join("."), platform, sortBy }
-          : { platform, sortBy },
+          ? { tag: tags.join("."), platform, ["sort-by"]: sortBy }
+          : { platform, ["sort-by"]: sortBy },
       }),
       transformResponse: (response: GetGamesPageResponse | GetEmptyGamesPageResponse) => {
         if ("code" in response) {
