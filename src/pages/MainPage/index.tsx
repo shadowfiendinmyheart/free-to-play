@@ -8,9 +8,9 @@ import { useGetGamesQuery } from "../../services/gameService";
 import { listSlice } from "../../store/reducers/ListSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getRoutePath } from "../../constants/routes";
+import { getFakeGames, LIST_DEFAULT_PAGE_SIZE } from "./utils";
 
 import styles from "./styles.module.scss";
-import { getFakeGames, LIST_DEFAULT_PAGE_SIZE } from "./utils";
 
 const { Title } = Typography;
 
@@ -45,6 +45,7 @@ const MainPage: React.FC = () => {
       <div className={styles.content}>
         <List
           dataSource={isFetching ? getFakeGames() : games}
+          rowKey={(item) => item.id}
           renderItem={(item) => {
             return (
               <Link to={getRoutePath.gamePage(item.id)}>
@@ -55,8 +56,7 @@ const MainPage: React.FC = () => {
             );
           }}
           pagination={
-            !isError &&
-            !isFetching && {
+            !isError && {
               defaultPageSize: LIST_DEFAULT_PAGE_SIZE,
               current: currentPage,
               onChange: handleChangeCurrentPageClick,
