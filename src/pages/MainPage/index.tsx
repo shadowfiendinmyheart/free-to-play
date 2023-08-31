@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getRoutePath } from "../../constants/routes";
 
 import styles from "./styles.module.scss";
+import { getFakeGames, LIST_DEFAULT_PAGE_SIZE } from "./utils";
 
 const { Title } = Typography;
 
@@ -43,7 +44,7 @@ const MainPage: React.FC = () => {
       </header>
       <div className={styles.content}>
         <List
-          dataSource={games}
+          dataSource={isFetching ? getFakeGames() : games}
           renderItem={(item) => {
             return (
               <Link to={getRoutePath.gamePage(item.id)}>
@@ -54,8 +55,9 @@ const MainPage: React.FC = () => {
             );
           }}
           pagination={
-            !isError && {
-              defaultPageSize: 5,
+            !isError &&
+            !isFetching && {
+              defaultPageSize: LIST_DEFAULT_PAGE_SIZE,
               current: currentPage,
               onChange: handleChangeCurrentPageClick,
               align: "center",
