@@ -1,22 +1,22 @@
 import React from "react";
-import {Link, useParams} from "react-router-dom";
-import {Button} from "antd";
-import {ArrowLeftOutlined} from "@ant-design/icons";
+import { Link, useParams } from "react-router-dom";
+import { Button } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import GameMainInfo from "./components/GameMainInfo";
 import GameTitle from "./components/GameTitle";
 import GameMinimumSystemRequirements from "./components/GameMinimumSystemRequirements";
 import GameScreenshots from "./components/GameScreenshots";
 import WithErrorFallback from "../../components/ErrorFallback/WithErrorFallback";
-import {ROUTES} from "../../constants/routes";
-import {useGetGameByIdQuery} from "../../services/gameService";
-import {checkIsEarlierThanFiveMinutes} from "../../utils/date";
-import {GameWithTimestampReceiving} from "../../models/game.model";
-import {QueryError} from "../../components/ErrorFallback";
+import { ROUTES } from "../../constants/routes";
+import { useGetGameByIdQuery } from "../../services/gameService";
+import { checkIsEarlierThanFiveMinutes } from "../../utils/date";
+import { GameWithTimestampReceiving } from "../../models/game.model";
+import { QueryError } from "../../components/ErrorFallback";
 
 import styles from "./styles.module.scss";
 
 const GamePage = () => {
-  const {id} = useParams();
+  const { id } = useParams();
 
   const gameFromStorage: GameWithTimestampReceiving | undefined = JSON.parse(
     sessionStorage.getItem(`game_${id}`) || "null",
@@ -26,12 +26,12 @@ const GamePage = () => {
     ? checkIsEarlierThanFiveMinutes(gameFromStorage!.timestampReceiving)
     : false;
 
-  const {data, isError, error, isFetching} = useGetGameByIdQuery(Number(id), {
+  const { data, isError, error, isFetching } = useGetGameByIdQuery(Number(id), {
     skip: isFresh,
   });
 
   const game = isFresh ? gameFromStorage : data;
-  const gameProps = {...game, isLoading: isFetching};
+  const gameProps = { ...game, isLoading: isFetching };
 
   return (
     <div className={styles.gamePage}>

@@ -1,25 +1,23 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {List, Typography} from "antd";
+import { Link } from "react-router-dom";
+import { List, Typography } from "antd";
 import FiltersPanel from "../../components/FiltersPanel";
 import GameItem from "../../components/GameItem";
-import {getGamePageRoutePath} from "../../constants/routes";
-import {useGetGamesQuery} from "../../services/gameService";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {listSlice} from "../../store/reducers/ListSlice";
-import ErrorFallback, {QueryError} from "../../components/ErrorFallback";
+import { getGamePageRoutePath } from "../../constants/routes";
+import { useGetGamesQuery } from "../../services/gameService";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { listSlice } from "../../store/reducers/ListSlice";
+import ErrorFallback, { QueryError } from "../../components/ErrorFallback";
 
 import styles from "./styles.module.scss";
 
-const {Title} = Typography;
+const { Title } = Typography;
 
 const MainPage: React.FC = () => {
-  const {platform, tags, sortBy} = useAppSelector(
-    (state) => state.filterReducer,
-  );
-  const {currentPage} = useAppSelector((state) => state.listReducer);
+  const { platform, tags, sortBy } = useAppSelector((state) => state.filterReducer);
+  const { currentPage } = useAppSelector((state) => state.listReducer);
   const dispatch = useAppDispatch();
-  const {changeCurrentPage} = listSlice.actions;
+  const { changeCurrentPage } = listSlice.actions;
   const {
     data: games,
     isError,
@@ -32,7 +30,7 @@ const MainPage: React.FC = () => {
       tags: tags,
       sortBy: sortBy,
     },
-    {refetchOnMountOrArgChange: true},
+    { refetchOnMountOrArgChange: true },
   );
 
   const handleChangeCurrentPageClick = (page: number) => {

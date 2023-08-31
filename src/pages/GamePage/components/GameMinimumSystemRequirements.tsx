@@ -1,17 +1,18 @@
 import React from "react";
-import {Descriptions, Skeleton} from "antd";
+import { Descriptions, Skeleton } from "antd";
 import useIsMobile from "../../../hooks/useIsMobile";
 import WithTitle from "./WithTitle";
-import {GameProps} from "./utils";
+import { GameProps } from "./utils";
 
 const title = "Minimum System Requirements";
 
 interface GameMinimumSystemRequirementsProps
   extends GameProps<"minimumSystemRequirements"> {}
 
-const GameMinimumSystemRequirements: React.FC<
-  GameMinimumSystemRequirementsProps
-> = ({minimumSystemRequirements, isLoading}) => {
+const GameMinimumSystemRequirements: React.FC<GameMinimumSystemRequirementsProps> = ({
+  minimumSystemRequirements,
+  isLoading,
+}) => {
   const isMobile = useIsMobile();
 
   if (isLoading) {
@@ -20,8 +21,8 @@ const GameMinimumSystemRequirements: React.FC<
         <Skeleton
           active
           title={false}
-          paragraph={{rows: 10}}
-          style={{width: isMobile ? "80%" : "50%"}}
+          paragraph={{ rows: 10 }}
+          style={{ width: isMobile ? "80%" : "50%" }}
         />
       </WithTitle>
     );
@@ -41,17 +42,17 @@ const GameMinimumSystemRequirements: React.FC<
       <Descriptions
         layout="vertical"
         items={[
-          {label: "OS", children: minimumSystemRequirements.os},
+          { label: "OS", children: minimumSystemRequirements.os },
           {
             label: "Processor",
             children: minimumSystemRequirements.processor,
           },
-          {label: "Memory", children: minimumSystemRequirements.memory},
+          { label: "Memory", children: minimumSystemRequirements.memory },
           {
             label: "Graphics",
             children: minimumSystemRequirements.graphics,
           },
-          {label: "Storage", children: minimumSystemRequirements.storage},
+          { label: "Storage", children: minimumSystemRequirements.storage },
         ]}
         size={"small"}
         column={isMobile ? 1 : 3}

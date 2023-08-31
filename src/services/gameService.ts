@@ -1,23 +1,12 @@
-import {
-  createApi,
-  fetchBaseQuery,
-  retry,
-} from "@reduxjs/toolkit/dist/query/react";
-import {GamePageFilter} from "../models/filter.model";
-import {
-  Game,
-  GamePreview,
-  GameWithTimestampReceiving,
-} from "../models/game.model";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/dist/query/react";
+import { GamePageFilter } from "../models/filter.model";
+import { Game, GamePreview, GameWithTimestampReceiving } from "../models/game.model";
 import {
   GetEmptyGamesPageResponse,
   GetGameByIdResponse,
   GetGamesPageResponse,
 } from "../models/gameApi.model";
-import {
-  mapGameByIdToGame,
-  mapGamePageViewToGamePreview,
-} from "../utils/mappers";
+import { mapGameByIdToGame, mapGamePageViewToGamePreview } from "../utils/mappers";
 
 export const gameApi = createApi({
   reducerPath: "gameApi",
@@ -29,20 +18,17 @@ export const gameApi = createApi({
           "X-RapidAPI-Key",
           process.env.REACT_APP_FREE_TO_GAME_RAPID_API_KEY || "",
         );
-        headers.set(
-          "X-RapidAPI-Host",
-          "free-to-play-games-database.p.rapidapi.com",
-        );
+        headers.set("X-RapidAPI-Host", "free-to-play-games-database.p.rapidapi.com");
         return headers;
       },
     }),
-    {maxRetries: 3},
+    { maxRetries: 3 },
   ),
   endpoints: (build) => ({
     getGameById: build.query<Game, number>({
       query: (id) => `/game?id=${id}`,
       transformResponse: (response: GetGameByIdResponse) => {
-        const mappedGameResponse = {...mapGameByIdToGame(response)};
+        const mappedGameResponse = { ...mapGameByIdToGame(response) };
         const gameWithTimestampReceiving: GameWithTimestampReceiving = {
           ...mappedGameResponse,
           timestampReceiving: Date.now(),
@@ -55,15 +41,13 @@ export const gameApi = createApi({
       },
     }),
     getGames: build.query<GamePreview[], GamePageFilter>({
-      query: ({platform, sortBy, tags}) => ({
+      query: ({ platform, sortBy, tags }) => ({
         url: tags.length ? "/filter" : "/games",
         params: tags.length
-          ? {tag: tags.join("."), platform, sortBy}
-          : {platform, sortBy},
+          ? { tag: tags.join("."), platform, sortBy }
+          : { platform, sortBy },
       }),
-      transformResponse: (
-        response: GetGamesPageResponse | GetEmptyGamesPageResponse,
-      ) => {
+      transformResponse: (response: GetGamesPageResponse | GetEmptyGamesPageResponse) => {
         if ("code" in response) {
           return [];
         }

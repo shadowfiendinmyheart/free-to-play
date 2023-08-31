@@ -1,5 +1,6 @@
 module.exports = {
   bracketSpacing: false,
   trailingComma: 'all',
-  printWidth: 80,
+  bracketSpacing: true,
+  printWidth: 90,
 };

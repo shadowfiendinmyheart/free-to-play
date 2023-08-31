@@ -1,4 +1,4 @@
-import {Category, Platform, SortGameBy} from "./game.model";
+import { Category, Platform, SortGameBy } from "./game.model";
 
 export interface GamePageFilter {
   tags: Category[];

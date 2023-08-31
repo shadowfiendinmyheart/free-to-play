@@ -1,12 +1,12 @@
 import React from "react";
-import {Card, Typography, Skeleton} from "antd";
-import {GamePreview} from "../../models/game.model";
+import { Card, Typography, Skeleton } from "antd";
+import { GamePreview } from "../../models/game.model";
 import GameItemDescription from "./GameItemDescription";
 import GameItemImage from "./GameItemImage";
 import useIsMobile from "../../hooks/useIsMobile";
 
-const {Title} = Typography;
-const {Meta} = Card;
+const { Title } = Typography;
+const { Meta } = Card;
 
 interface GameItemProps
   extends Pick<
@@ -17,10 +17,10 @@ interface GameItemProps
 }
 
 const GameItem: React.FC<GameItemProps> = (props) => {
-  const {title, isLoading} = props;
+  const { title, isLoading } = props;
   const isMobile = useIsMobile();
 
-  if (isLoading) return <Skeleton active paragraph={{rows: 4}} />;
+  if (isLoading) return <Skeleton active paragraph={{ rows: 4 }} />;
 
   if (isMobile) {
     return (

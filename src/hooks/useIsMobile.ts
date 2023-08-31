@@ -1,6 +1,6 @@
-import {useLayoutEffect, useState} from "react";
+import { useLayoutEffect, useState } from "react";
 import debounce from "../utils/debounce";
-import {MOBILE_WIDTH} from "../constants/styles";
+import { MOBILE_WIDTH } from "../constants/styles";
 
 const useIsMobile = (): boolean => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < MOBILE_WIDTH);

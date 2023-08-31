@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Category, Platform, SortGameBy} from "../../models/game.model";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Category, Platform, SortGameBy } from "../../models/game.model";
 
 export interface FiltersState {
   platform: Platform;

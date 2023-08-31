@@ -1,5 +1,5 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import {gameApi} from "../services/gameService";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { gameApi } from "../services/gameService";
 import filterReducer from "./reducers/FiltersSlice";
 import listReducer from "./reducers/ListSlice";
 

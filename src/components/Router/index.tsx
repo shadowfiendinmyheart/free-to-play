@@ -1,10 +1,10 @@
 import React from "react";
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import RouterLayout from "../RouterLayout";
 import MainPage from "../../pages/MainPage";
 import GamePage from "../../pages/GamePage";
 import NotFoundPage from "../../pages/NotFoundPage";
-import {ROUTES} from "../../constants/routes";
+import { ROUTES } from "../../constants/routes";
 import ScrollToTop from "./ScrollToTop";
 
 const Router: React.FC = () => (

@@ -1,8 +1,4 @@
-import {
-  GamePageView,
-  MinimumSystemRequirements,
-  Screenshot,
-} from "./game.model";
+import { GamePageView, MinimumSystemRequirements, Screenshot } from "./game.model";
 
 export interface GetGameByIdResponse {
   id: number;

@@ -1,4 +1,4 @@
-import {GetGameByIdResponse} from "./gameApi.model";
+import { GetGameByIdResponse } from "./gameApi.model";
 
 export interface GamePageView {
   id: number;

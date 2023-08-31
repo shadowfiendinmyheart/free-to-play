@@ -1,5 +1,5 @@
-import React, {ReactNode} from "react";
-import ErrorFallback, {ErrorFallbackProps} from ".";
+import React, { ReactNode } from "react";
+import ErrorFallback, { ErrorFallbackProps } from ".";
 
 interface WithErrorFallbackProps extends ErrorFallbackProps {
   isError?: boolean;
