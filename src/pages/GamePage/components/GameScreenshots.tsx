@@ -2,8 +2,8 @@ import React from "react";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Carousel, Image, Skeleton } from "antd";
 import WithTitle from "./WithTitle";
-import { GameProps } from "./utils";
 import { Screenshot } from "../../../models/game.model";
+import { GameProps } from "./utils";
 
 const title = "Screenshots";
 

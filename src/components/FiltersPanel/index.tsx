@@ -4,6 +4,7 @@ import { DefaultOptionType } from "antd/es/select";
 import { Category, Platform, SortGameBy } from "../../models/game.model";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { filtersSlice } from "../../store/reducers/FiltersSlice";
+import { listSlice } from "../../store/reducers/ListSlice";
 
 import styles from "./styles.module.scss";
 
@@ -17,19 +18,23 @@ const platformOptions: DefaultOptionType[] = getOptions(Platform);
 const categoryOptions: DefaultOptionType[] = getOptions(Category);
 const sortOptions: DefaultOptionType[] = getOptions(SortGameBy);
 
-const FiltersPanel = () => {
+const FiltersPanel: React.FC = () => {
   const { platform, sortBy, tags } = useAppSelector((state) => state.filterReducer);
   const { changePlatform, changeCategories, changeSortBy } = filtersSlice.actions;
+  const { changeCurrentPage } = listSlice.actions;
   const dispatch = useAppDispatch();
 
   const handlePlatformChange = (value: Platform) => {
     dispatch(changePlatform(value));
+    dispatch(changeCurrentPage(1));
   };
   const handleCategoryChange = (value: Category[]) => {
     dispatch(changeCategories(value));
+    dispatch(changeCurrentPage(1));
   };
   const handleSortByChange = (value: SortGameBy) => {
     dispatch(changeSortBy(value));
+    dispatch(changeCurrentPage(1));
   };
 
   return (

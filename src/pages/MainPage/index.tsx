@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { List, Typography } from "antd";
 import FiltersPanel from "../../components/FiltersPanel";
 import GameItem from "../../components/GameItem";
-import { getGamePageRoutePath } from "../../constants/routes";
-import { useGetGamesQuery } from "../../services/gameService";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { listSlice } from "../../store/reducers/ListSlice";
 import ErrorFallback, { QueryError } from "../../components/ErrorFallback";
+import { useGetGamesQuery } from "../../services/gameService";
+import { listSlice } from "../../store/reducers/ListSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { getRoutePath } from "../../constants/routes";
 
 import styles from "./styles.module.scss";
 
@@ -47,7 +47,7 @@ const MainPage: React.FC = () => {
           dataSource={games}
           renderItem={(item) => {
             return (
-              <Link to={getGamePageRoutePath(item.id)}>
+              <Link to={getRoutePath.gamePage(item.id)}>
                 <div className={styles.gameItemWrapper}>
                   <GameItem isLoading={isFetching} {...item} />
                 </div>

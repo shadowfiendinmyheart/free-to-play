@@ -1,7 +1,7 @@
-import { Descriptions } from "antd";
 import React from "react";
-import { GamePreview } from "../../models/game.model";
-import { getRuDate } from "../../utils/date";
+import { Descriptions } from "antd";
+import { GamePreview } from "../../../models/game.model";
+import { getRuDate } from "../../../utils/date";
 
 interface GameItemAboutProps
   extends Pick<GamePreview, "releaseDate" | "publisher" | "genre"> {}

@@ -1,5 +1,5 @@
 import React from "react";
-import { GamePreview } from "../../models/game.model";
+import { GamePreview } from "../../../models/game.model";
 
 import styles from "./styles.module.scss";
 

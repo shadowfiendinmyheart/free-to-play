@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, Typography, Skeleton } from "antd";
 import { GamePreview } from "../../models/game.model";
-import GameItemDescription from "./GameItemDescription";
-import GameItemImage from "./GameItemImage";
+import GameItemDescription from "./components/GameItemDescription";
+import GameItemImage from "./components/GameItemImage";
 import useIsMobile from "../../hooks/useIsMobile";
 
 const { Title } = Typography;

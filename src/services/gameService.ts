@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/dist/query/react";
+import { getSessionStorageKey } from "../constants/storage";
 import { GamePageFilter } from "../models/filter.model";
 import { Game, GamePreview, GameWithTimestampReceiving } from "../models/game.model";
 import {
@@ -34,7 +35,7 @@ export const gameApi = createApi({
           timestampReceiving: Date.now(),
         };
         sessionStorage.setItem(
-          `game_${mappedGameResponse.id}`,
+          getSessionStorageKey.gameId(mappedGameResponse.id),
           JSON.stringify(gameWithTimestampReceiving),
         );
         return mappedGameResponse;
@@ -62,9 +63,4 @@ export const gameApi = createApi({
   }),
 });
 
-export const {
-  useGetGameByIdQuery,
-  useLazyGetGameByIdQuery,
-  useGetGamesQuery,
-  useLazyGetGamesQuery,
-} = gameApi;
+export const { useGetGameByIdQuery, useGetGamesQuery } = gameApi;

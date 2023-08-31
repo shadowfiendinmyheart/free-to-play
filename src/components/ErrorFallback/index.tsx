@@ -1,7 +1,7 @@
+import React from "react";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { Button } from "antd";
-import React from "react";
 
 import styles from "./styles.module.scss";
 

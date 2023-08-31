@@ -7,19 +7,20 @@ import GameTitle from "./components/GameTitle";
 import GameMinimumSystemRequirements from "./components/GameMinimumSystemRequirements";
 import GameScreenshots from "./components/GameScreenshots";
 import WithErrorFallback from "../../components/ErrorFallback/WithErrorFallback";
-import { ROUTES } from "../../constants/routes";
-import { useGetGameByIdQuery } from "../../services/gameService";
-import { checkIsEarlierThanFiveMinutes } from "../../utils/date";
-import { GameWithTimestampReceiving } from "../../models/game.model";
 import { QueryError } from "../../components/ErrorFallback";
+import { useGetGameByIdQuery } from "../../services/gameService";
+import { GameWithTimestampReceiving } from "../../models/game.model";
+import { getRoutePath } from "../../constants/routes";
+import { getSessionStorageKey } from "../../constants/storage";
+import { checkIsEarlierThanFiveMinutes } from "../../utils/date";
 
 import styles from "./styles.module.scss";
 
-const GamePage = () => {
+const GamePage: React.FC = () => {
   const { id } = useParams();
 
   const gameFromStorage: GameWithTimestampReceiving | undefined = JSON.parse(
-    sessionStorage.getItem(`game_${id}`) || "null",
+    sessionStorage.getItem(getSessionStorageKey.gameId(Number(id))) || "null",
   );
   const isCached = Boolean(gameFromStorage);
   const isFresh = isCached
@@ -35,7 +36,7 @@ const GamePage = () => {
 
   return (
     <div className={styles.gamePage}>
-      <Link to={ROUTES.MAIN_PAGE} className={styles.backButtonWrapper}>
+      <Link to={getRoutePath.mainPage()} className={styles.backButtonWrapper}>
         <Button type="link" icon={<ArrowLeftOutlined />}>
           Back
         </Button>

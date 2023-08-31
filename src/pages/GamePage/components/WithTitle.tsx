@@ -1,10 +1,10 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Typography } from "antd";
 
 const { Title } = Typography;
 
 interface WithTitleProps {
-  children: ReactNode;
+  children: React.ReactNode;
   title: string;
 }
 

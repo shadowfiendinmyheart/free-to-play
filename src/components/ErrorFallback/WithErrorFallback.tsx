@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import ErrorFallback, { ErrorFallbackProps } from ".";
 
 interface WithErrorFallbackProps extends ErrorFallbackProps {
   isError?: boolean;
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
 const WithErrorFallback: React.FC<WithErrorFallbackProps> = ({
