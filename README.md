@@ -1,7 +1,7 @@
 # Free to play games app
   
 ## Инструкция по запуску приложения
-- Склонировать репозиторий — ```https://github.com/shadowfiendinmyheart/free-to-play.git```
+- Склонировать репозиторий — ```git clone https://github.com/shadowfiendinmyheart/free-to-play.git```
 - Установить зависимости — ```npm install```
 - В корне приложения создать файл с названием ```.env``` и прописать туда следующую конструкцию: ```REACT_APP_FREE_TO_GAME_RAPID_API_KEY=your_rapid_api_key```, где ```your_rapid_api_key``` это Ваш ключ от rapidApi
 - Запустить приложение — ```npm start```
