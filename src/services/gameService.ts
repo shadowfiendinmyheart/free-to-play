@@ -1,4 +1,8 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
+import {
+  createApi,
+  fetchBaseQuery,
+  retry,
+} from "@reduxjs/toolkit/dist/query/react";
 import {GamePageFilter} from "../models/filter.model";
 import {
   Game,
@@ -17,20 +21,23 @@ import {
 
 export const gameApi = createApi({
   reducerPath: "gameApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://free-to-play-games-database.p.rapidapi.com/api/",
-    prepareHeaders: (headers) => {
-      headers.set(
-        "X-RapidAPI-Key",
-        process.env.REACT_APP_FREE_TO_GAME_RAPID_API_KEY || "",
-      );
-      headers.set(
-        "X-RapidAPI-Host",
-        "free-to-play-games-database.p.rapidapi.com",
-      );
-      return headers;
-    },
-  }),
+  baseQuery: retry(
+    fetchBaseQuery({
+      baseUrl: "https://free-to-play-games-database.p.rapidapi.com/api/",
+      prepareHeaders: (headers) => {
+        headers.set(
+          "X-RapidAPI-Key",
+          process.env.REACT_APP_FREE_TO_GAME_RAPID_API_KEY || "",
+        );
+        headers.set(
+          "X-RapidAPI-Host",
+          "free-to-play-games-database.p.rapidapi.com",
+        );
+        return headers;
+      },
+    }),
+    {maxRetries: 3},
+  ),
   endpoints: (build) => ({
     getGameById: build.query<Game, number>({
       query: (id) => `/game?id=${id}`,
@@ -71,4 +78,9 @@ export const gameApi = createApi({
   }),
 });
 
-export const {useGetGameByIdQuery, useGetGamesQuery} = gameApi;
+export const {
+  useGetGameByIdQuery,
+  useLazyGetGameByIdQuery,
+  useGetGamesQuery,
+  useLazyGetGamesQuery,
+} = gameApi;

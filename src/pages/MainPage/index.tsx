@@ -7,9 +7,9 @@ import {getGamePageRoutePath} from "../../constants/routes";
 import {useGetGamesQuery} from "../../services/gameService";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {listSlice} from "../../store/reducers/ListSlice";
+import ErrorFallback, {QueryError} from "../../components/ErrorFallback";
 
 import styles from "./styles.module.scss";
-import ErrorFallback from "../../components/ErrorFallback";
 
 const {Title} = Typography;
 
@@ -25,6 +25,7 @@ const MainPage: React.FC = () => {
     isError,
     error,
     isFetching,
+    isLoading,
   } = useGetGamesQuery(
     {
       platform: platform,
@@ -65,7 +66,7 @@ const MainPage: React.FC = () => {
           }
           className={styles.list}
         >
-          {isError && <ErrorFallback expandError={error} />}
+          {isError && <ErrorFallback expandError={error as QueryError} />}
         </List>
         <FiltersPanel />
       </div>

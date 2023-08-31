@@ -5,9 +5,10 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 
+export type QueryError = FetchBaseQueryError | SerializedError | undefined;
 export interface ErrorFallbackProps {
   errorMessage?: string;
-  expandError?: FetchBaseQueryError | SerializedError | undefined;
+  expandError?: QueryError;
 }
 
 const defaultErrorMessage = "Ooops, something went wrong :(";

@@ -11,6 +11,7 @@ import {ROUTES} from "../../constants/routes";
 import {useGetGameByIdQuery} from "../../services/gameService";
 import {checkIsEarlierThanFiveMinutes} from "../../utils/date";
 import {GameWithTimestampReceiving} from "../../models/game.model";
+import {QueryError} from "../../components/ErrorFallback";
 
 import styles from "./styles.module.scss";
 
@@ -25,19 +26,11 @@ const GamePage = () => {
     ? checkIsEarlierThanFiveMinutes(gameFromStorage!.timestampReceiving)
     : false;
 
-  const {data, isError, error, isFetching} = useGetGameByIdQuery(
-    Number(id) || 0,
-    {
-      skip: isFresh,
-    },
-  );
-
-  if (isError && "data" in error) {
-    console.log("error", JSON.stringify(error.data));
-  }
+  const {data, isError, error, isFetching} = useGetGameByIdQuery(Number(id), {
+    skip: isFresh,
+  });
 
   const game = isFresh ? gameFromStorage : data;
-
   const gameProps = {...game, isLoading: isFetching};
 
   return (
@@ -47,7 +40,7 @@ const GamePage = () => {
           Back
         </Button>
       </Link>
-      <WithErrorFallback isError={isError} expandError={error}>
+      <WithErrorFallback isError={isError} expandError={error as QueryError}>
         <GameTitle {...gameProps} />
         <GameMainInfo {...gameProps} />
         <GameMinimumSystemRequirements {...gameProps} />
