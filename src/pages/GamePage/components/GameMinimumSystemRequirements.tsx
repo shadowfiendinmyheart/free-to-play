@@ -28,11 +28,10 @@ const GameMinimumSystemRequirements: React.FC<GameMinimumSystemRequirementsProps
     );
   }
 
-  // TODO
   if (!minimumSystemRequirements) {
     return (
       <WithTitle title={title}>
-        <span>You can use microwave to play this game</span>
+        <span>You can use microwave(😯) to play this game</span>
       </WithTitle>
     );
   }
